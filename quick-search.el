@@ -93,7 +93,6 @@ which will be run through \'shell-command\'."
   (if (get-buffer-window "*eww*")
       ()
     (progn
-      (message "Should have created a new window")
       (split-window-right)
       (switch-to-buffer-other-window "*eww*")))
   (with-current-buffer (get-buffer "*eww*")
@@ -113,6 +112,7 @@ which will be run through \'shell-command\'."
 ;;   - test: allow user to add custom website
 ;;   - test: allow user to open in external browser
 ;;   - search highlighted region if selected
+;;   - take the "key" as a char input and not string
 
 (provide 'quick-search)
 
