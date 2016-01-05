@@ -113,7 +113,7 @@ which will be run through \'shell-command\'."
 ;;   - test: allow user to open in external browser
 ;;   - search highlighted region if selected
 ;;   - take the "key" as a char input and not string
-
+;;   - load table at first quick-search
 (provide 'quick-search)
 
 ;;; quick-search.el ends here
