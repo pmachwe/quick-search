@@ -75,7 +75,9 @@ which will be run through \'shell-command\'."
 (defun qs-compose-google-search-url (str)
   "Add '+' between different words of STR to add to Google search URL."
   (let (cat-str)
-    (setq cat-str (replace-regexp-in-string " +" "+" str))
+    (setq cat-str (replace-regexp-in-string " +$" "" str))     ; remove trailing whitespace
+    (setq cat-str (replace-regexp-in-string "^ +" "" cat-str)) ; remove leading whitespace
+    (setq cat-str (replace-regexp-in-string " +" "+" cat-str))
     (concat qs-google-search-prefix cat-str)))
 
 (defun qs-add-site-to-url (url site)
