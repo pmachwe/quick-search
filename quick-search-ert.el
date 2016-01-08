@@ -29,8 +29,6 @@
 
 ;;; Code:
 
-(load-file "./quick-search.el")
-
 (require 'ert)
 (require 'quick-search)
 
