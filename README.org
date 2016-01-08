@@ -11,7 +11,21 @@ Emacs using the natvie browser *eww*.
 Call the interactive function ~qs-do-search~ which takes in two
 inputs:
 + the search string (or the region if active)
-+ single letter website code (see quick-search.el)
++ single letter website code mentioned below.
+
+|-----+------------------------|
+| Key | Website                |
+|-----+------------------------|
+| s   | www.stackoverflow.com  |
+| S   | www.scikit-learn.org   |
+| t   | www.tutorialspoint.com |
+| g   | www.github.com         |
+| w   | www.wikipedia.com      |
+| e   | www.emacswiki.com      |
+| E   | www.ergoemacs.org      |
+| c   | www.cplusplus.com      |
+|-----+------------------------|
+
 
 It uses standard Google search with the extra keyword ~site:<special
 site>~ appended. It opens it in a side window with *eww*.
