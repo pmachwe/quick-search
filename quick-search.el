@@ -1,6 +1,6 @@
 ;;; quick-search.el --- quick-search -*- lexical-binding: t -*-
 
-;; Copyright (C) 2016 
+;; Copyright (C) 2016
 
 ;; Author:  Parikshit Machwe
 ;; Created: 04 Jan 2016
@@ -49,11 +49,12 @@ which will be run through \'shell-command\'."
 (defvar qs-google-search-prefix "http://www.google.com/search?q="
   "URL prefix for Google search.")
 
-(defvar qs-site-table 'nil
+(defvar qs-site-table nil
   "Table of specialized websites and the keybindings.")
 
 (defun qs-load-table ()
   "Load the site table and map to keybindings."
+  (message "Loading qs-table")
   (setq qs-site-table (make-hash-table :test 'equal))
   (puthash "s" "www.stackoverflow.com" qs-site-table)
   (puthash "S" "www.scikit-learn.org" qs-site-table)
@@ -63,9 +64,6 @@ which will be run through \'shell-command\'."
   (puthash "e" "www.emacswiki.com" qs-site-table)
   (puthash "E" "www.ergoemacs.org" qs-site-table)
   (puthash "c" "www.cplusplus.com" qs-site-table))
-
-;; auto-load the above
-(qs-load-table)
 
 (defun qs-add-custom-site (site key)
   "Allow user to add a custom SITE and the corresponding KEY."
@@ -100,20 +98,27 @@ which will be run through \'shell-command\'."
 
 (defun qs-do-search (str site)
   "Fire the search for the given string STR on the given site SITE."
-  (interactive "sSearch: \nsWebsite Code: ")
-  (let (url)
+  (interactive (list
+                (let (region-str)
+                  (if mark-active
+                      (setq region-str (buffer-substring-no-properties (region-beginning) (region-end)))
+                    (setq region-str nil))
+                  (read-string (format "Search String (%s): " region-str) nil nil region-str))
+                (read-string "Website Code : " nil nil "w")))
+  (let (url urls)
+    (if qs-site-table
+        ()
+      (qs-load-table)) ;; Load if not already loaded
     (setq url (qs-compose-google-search-url str))
-    (setq url (qs-add-site-to-url url site))
+    (setq urls (qs-add-site-to-url url site))
     (if (string-equal qs-browser "eww")
-        (eww-in-new-window url)
-      (shell-command (concat qs-browser " " url)))))
+        (eww-in-new-window urls)
+      (shell-command (concat qs-browser " " urls)))))
 
 ;; TODO:
 ;;   - test: allow user to add custom website
 ;;   - test: allow user to open in external browser
-;;   - search highlighted region if selected
-;;   - take the "key" as a char input and not string
-;;   - load table at first quick-search
+
 (provide 'quick-search)
 
 ;;; quick-search.el ends here
