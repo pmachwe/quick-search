@@ -1,0 +1,25 @@
+#+TITLE: quick-search
+#+AUTHOR: Parikshit Machwe
+
+* Introduction
+
+This is a simple package to search through common sites from within
+Emacs using the natvie browser *eww*.
+
+* Usage
+
+Call the interactive function ~qs-do-search~ which takes in two
+inputs:
++ the search string (or the region if active)
++ single letter website code (see quick-search.el)
+
+It uses standard Google search with the extra keyword ~site:<special
+site>~ appended. It opens it in a side window with *eww*.
+
+You could also specify an external browser by setting the variable
+~qs-browser~ to the exteral browser command. It will just call this
+through ~shell-command~ and append the URL generated.
+
+* Installation 
+
+Please copy the file ~quick_search.el~ and load it in your init file.
