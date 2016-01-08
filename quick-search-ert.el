@@ -1,8 +1,8 @@
 ;;; quick-search-ert.el --- quick-search -*- lexical-binding: t -*-
 
-;; Copyright (C) 2016 
+;; Copyright (C) 2016
 
-;; Author:  <pmachwe@PMACHWE-E7440>
+;; Author: Parikshit Machwe
 ;; Created: 05 Jan 2016
 ;; Version: 0.0.1
 ;; Keywords: quick, search, test, ert
