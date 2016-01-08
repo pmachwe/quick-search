@@ -40,6 +40,33 @@
     (setq cat-str (qs-compose-google-search-url "this   is a  test string "))
     (should (eql (string-match " " cat-str) nil))))
 
+(ert-deftest url-test2()
+  "Check no leading and ending +"
+  (let (cat-str)
+    (setq cat-str (qs-compose-google-search-url "  this   is a  test string  "))
+    (should (eql (string-match "^\+" cat-str) nil))
+    (should (eql (string-match "\+$" cat-str) nil))))
+
+(ert-deftest site-test1()
+  "Check that no site is appended for illegal key"
+  (let (url)
+    (setq url (qs-compose-google-search-url "  this   is a  test string  "))
+    (setq url (qs-add-site-to-url url "z"))
+    (should (eql (string-match "site" url) nil))))
+
+(ert-deftest site-test2()
+  "Check that correct site is appended for correct key"
+  (let (url)
+    (setq url (qs-compose-google-search-url "  this   is a  test string  "))
+    (setq url (qs-add-site-to-url url "w"))
+    (should-not (eql (string-match "wikipedia" url) nil))))
+
+(ert-deftest user-add-test1()
+  "Just to evoke the user function"
+  (qs-add-custom-site "www.justfortest.com" "@")
+  (should-not (eql (gethash "@" qs-site-table) nil))
+  (remhash "@" qs-site-table))
+
 (provide 'quick-search-ert)
 
 ;;; quick-search-ert.el ends here
