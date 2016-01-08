@@ -82,10 +82,13 @@ which will be run through \'shell-command\'."
 
 (defun qs-add-site-to-url (url site)
   "To the given URL add the special SITE keywords."
-  (if (string-equal site "")
-      (url)
-    (concat url "+:site=" (gethash site qs-site-table))))
-
+  (let (full-site)
+    (setq full-site (gethash site qs-site-table))
+    (if (or (eq full-site nil)
+            (string-equal site ""))
+        url
+      (concat url "+:site=" full-site))))
+    
 ;; Not using the qs- prefix as this is a useful function otherwise also
 (defun eww-in-new-window (url)
   "Open the URL in a side buffer."
